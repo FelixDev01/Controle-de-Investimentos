@@ -5,6 +5,8 @@ import com.investimento.dto.InvestimentoResponseDTO;
 import com.investimento.model.Investimentos;
 import com.investimento.repository.InvestimentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,5 +25,9 @@ public class InvestimentoService {
         Investimentos salvo = repository.save(investimentos);
 
         return new InvestimentoResponseDTO(salvo);
+    }
+
+    public Page<InvestimentoResponseDTO> listarTodos(Pageable pageable){
+        return repository.findAll(pageable).map(InvestimentoResponseDTO::new);
     }
 }
